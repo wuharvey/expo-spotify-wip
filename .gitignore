@@ -59,3 +59,9 @@ android/keystores/debug.keystore
 
 # Expo
 .expo/*
+
+# Lockfiles
+yarn.lock
+package-lock.json
+
+example/spotifyConfig.ts

@@ -1,44 +1,78 @@
 import ExpoModulesCore
+import SpotifyiOS
+
+let SPOTIFY_AUTHORIZATION_EVENT_NAME = "onSpotifyAuthorization"
+let LOG_EVENT_NAME = "onSpotifyLogger"
 
 public class ExpoSpotifyModule: Module {
-  // Each module class must implement the definition function. The definition consists of components
-  // that describes the module's functionality and behavior.
-  // See https://docs.expo.dev/modules/module-api for more details about available components.
-  public func definition() -> ModuleDefinition {
-    // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
-    // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
-    // The module will be accessible from `requireNativeModule('ExpoSpotify')` in JavaScript.
-    Name("ExpoSpotify")
+    let spotifyAuth = ExpoSpotifyAuth.shared
 
-    // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
-    Constants([
-      "PI": Double.pi
-    ])
+    // Each module class must implement the definition function. The definition consists of components
+    // that describes the module's functionality and behavior.
+    // See https://docs.expo.dev/modules/module-api for more details about available components.
+    public func definition() -> ModuleDefinition {
+        Name("ExpoSpotify")
+        
+        OnCreate {
+            ExpoSpotify.ExpoSpotifyAuth.shared.module = self
+        }
 
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
+        Constants([
+            "AuthEventName": SPOTIFY_AUTHORIZATION_EVENT_NAME,
+            "LoggerEventName": LOG_EVENT_NAME,
+        ])
 
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      return "Hello world! 👋"
+        // Defines event names that the module can send to JavaScript.
+        Events(SPOTIFY_AUTHORIZATION_EVENT_NAME, LOG_EVENT_NAME)
+
+        // This will be called when JS starts observing the event.
+        OnStartObserving {
+            print("OnStartObserving")
+            // Add any observers or listeners, if required.
+            // In this case, you might not need anything here.
+        }
+
+        // This will be called when JS stops observing the event.
+        OnStopObserving {
+            print("OnStopObserving")
+            // Remove any observers or listeners.
+        }
+
+        Function("logger") { (message: String) in
+            onLogger(message)
+        }
+
+        Function("authorize") { (_ playURI: String?) in
+            spotifyAuth.initAuth(playURI)
+        }
+
+        // Enables the module to be used as a native view. Definition components that are accepted as part of the
+        // view definition: Prop, Events.
+        View(ExpoSpotifyView.self) {
+            // Defines a setter for the `name` prop.
+            Prop("name") { (_: ExpoSpotifyView, prop: String) in
+                print(prop)
+            }
+        }
     }
 
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { (value: String) in
-      // Send an event to JavaScript.
-      self.sendEvent("onChange", [
-        "value": value
-      ])
+    @objc
+    public func onAccessTokenObtained(_ token: String) {
+        sendEvent(SPOTIFY_AUTHORIZATION_EVENT_NAME, ["success": true, "token": token])
     }
 
-    // Enables the module to be used as a native view. Definition components that are accepted as part of the
-    // view definition: Prop, Events.
-    View(ExpoSpotifyView.self) {
-      // Defines a setter for the `name` prop.
-      Prop("name") { (view: ExpoSpotifyView, prop: String) in
-        print(prop)
-      }
+    @objc
+    public func onSignOut() {
+        sendEvent(SPOTIFY_AUTHORIZATION_EVENT_NAME, ["success": true, "token": nil])
     }
-  }
+
+    @objc
+    public func onAuthorizationError(_ errorDescription: String) {
+        sendEvent(SPOTIFY_AUTHORIZATION_EVENT_NAME, ["success": false, "error": errorDescription, "token": nil])
+    }
+
+    @objc
+    public func onLogger(_ message: String) {
+        sendEvent(LOG_EVENT_NAME, ["message": message])
+    }
 }

@@ -3,9 +3,9 @@ import {
   NativeModulesProxy,
   Subscription,
 } from "expo-modules-core";
-import { createContext, FC, PropsWithChildren, useContext, useEffect, useState } from "react";
+import * as React from "react";
 
-import { SpotifyAuthorizationData } from "./ExpoSpotify.types";
+import { SpotifyAuthorizationData, SpotifyContext } from "./ExpoSpotify.types";
 import ExpoSpotifyModule from "./ExpoSpotifyModule";
 
 const emitter = new EventEmitter(
@@ -13,20 +13,22 @@ const emitter = new EventEmitter(
 );
 
 /** Helper hook to log native messages to the console. Remove this in production. */
-function addNativeLogger(listener: (message: string) => void): Subscription {
-  return emitter.addListener<string>(
+function addNativeLogger(
+  listener: ({ message }: { message: string }) => void
+): Subscription {
+  return emitter.addListener<{ message: string }>(
     ExpoSpotifyModule.LoggerEventName,
     listener
   );
 }
-function useSpotifyLogger() {
-  useEffect(() => {
-    const subscription = addNativeLogger((message) => {
+const useSpotifyLogger = () => {
+  React.useEffect(() => {
+    const subscription = addNativeLogger(({ message }) => {
       console.log(message);
     });
     return () => subscription.remove();
   }, []);
-}
+};
 /** remove end */
 
 function addAuthListener(
@@ -38,14 +40,16 @@ function addAuthListener(
   );
 }
 
-const SpotifyAuthContext = createContext({
+const SpotifyAuthContext = React.createContext<SpotifyContext>({
   accessToken: null,
-  authorize: (playURI?: string) => Promise<void>,
+  authorize: async (playURI?: string) => {},
 });
 
-const SpotifyProvider: FC<PropsWithChildren<object>> = () => {
-  const [token, setToken] = useState<string | null>(null);
-  useEffect(() => {
+const SpotifyProvider: React.FC<React.PropsWithChildren<object>> = ({
+  children,
+}) => {
+  const [token, setToken] = React.useState<string | null>(null);
+  React.useEffect(() => {
     const subscription = addAuthListener((data) => {
       setToken(data.token);
       if (data.error) console.error(`Spotify auth error: ${data.error}`);
@@ -60,10 +64,15 @@ const SpotifyProvider: FC<PropsWithChildren<object>> = () => {
       console.error(`Spotify auth error: ${error}`);
     }
   }
-  
-  return (
-    <SpotifyAuthContext.Provider value={{ accessToken: token, authorize }} c />
-  )
-}
 
-export { useSpotifyAuth, useSpotifyLogger };
+  return (
+    <SpotifyAuthContext.Provider
+      value={{ accessToken: token, authorize }}
+      children={children}
+    />
+  );
+};
+
+const useSpotify = () => React.useContext(SpotifyAuthContext);
+
+export { SpotifyProvider, useSpotify, useSpotifyLogger };

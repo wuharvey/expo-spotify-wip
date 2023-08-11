@@ -1,7 +1,8 @@
 {
-  "platforms": ["ios", "android", "web"],
+  "platforms": ["ios", "android"],
   "ios": {
-    "modules": ["ExpoSpotifyModule"]
+    "modules": ["ExpoSpotifyModule"],
+    "appDelegateSubscribers": ["SpotifyAuthDelegate"]
   },
   "android": {
     "modules": ["expo.modules.spotify.ExpoSpotifyModule"]

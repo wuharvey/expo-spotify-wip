@@ -30,10 +30,10 @@
   "homepage": "https://github.com/kvbalib/expo-spotify#readme",
   "dependencies": {},
   "devDependencies": {
-    "@types/react": "^18.0.25",
-    "@types/react-native": "^0.70.6",
-    "expo-module-scripts": "^3.0.4",
-    "expo-modules-core": "^1.1.0"
+    "@types/react": "^18.0.35",
+    "@types/react-native": "^0.71.5",
+    "expo-module-scripts": "^3.0.7",
+    "expo-modules-core": "^1.2.6"
   },
   "peerDependencies": {
     "expo": "*",
