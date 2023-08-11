@@ -36,10 +36,6 @@ public class ExpoSpotifyModule: Module {
             // Remove any observers or listeners.
         }
 
-        Function("logger") { (message: String) in
-            onLogger(message)
-        }
-
         Function("authorize") { (_ playURI: String?) in
             spotifyAuth.initAuth(playURI)
         }
