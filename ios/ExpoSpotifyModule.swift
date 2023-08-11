@@ -2,7 +2,6 @@ import ExpoModulesCore
 import SpotifyiOS
 
 let SPOTIFY_AUTHORIZATION_EVENT_NAME = "onSpotifyAuthorization"
-let LOG_EVENT_NAME = "onSpotifyLogger"
 
 public class ExpoSpotifyModule: Module {
     let spotifyAuth = ExpoSpotifyAuth.shared
@@ -12,14 +11,13 @@ public class ExpoSpotifyModule: Module {
     // See https://docs.expo.dev/modules/module-api for more details about available components.
     public func definition() -> ModuleDefinition {
         Name("ExpoSpotify")
-        
+
         OnCreate {
             ExpoSpotify.ExpoSpotifyAuth.shared.module = self
         }
 
         Constants([
             "AuthEventName": SPOTIFY_AUTHORIZATION_EVENT_NAME,
-            "LoggerEventName": LOG_EVENT_NAME,
         ])
 
         // Defines event names that the module can send to JavaScript.
@@ -69,10 +67,5 @@ public class ExpoSpotifyModule: Module {
     @objc
     public func onAuthorizationError(_ errorDescription: String) {
         sendEvent(SPOTIFY_AUTHORIZATION_EVENT_NAME, ["success": false, "error": errorDescription, "token": nil])
-    }
-
-    @objc
-    public func onLogger(_ message: String) {
-        sendEvent(LOG_EVENT_NAME, ["message": message])
     }
 }

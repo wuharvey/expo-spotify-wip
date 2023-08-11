@@ -12,25 +12,6 @@ const emitter = new EventEmitter(
   ExpoSpotifyModule ?? NativeModulesProxy.ExpoSpotify
 );
 
-/** Helper hook to log native messages to the console. Remove this in production. */
-function addNativeLogger(
-  listener: ({ message }: { message: string }) => void
-): Subscription {
-  return emitter.addListener<{ message: string }>(
-    ExpoSpotifyModule.LoggerEventName,
-    listener
-  );
-}
-const useSpotifyLogger = () => {
-  React.useEffect(() => {
-    const subscription = addNativeLogger(({ message }) => {
-      console.log(message);
-    });
-    return () => subscription.remove();
-  }, []);
-};
-/** remove end */
-
 function addAuthListener(
   listener: (data: SpotifyAuthorizationData) => void
 ): Subscription {
@@ -75,4 +56,4 @@ const SpotifyProvider: React.FC<React.PropsWithChildren<object>> = ({
 
 const useSpotify = () => React.useContext(SpotifyAuthContext);
 
-export { SpotifyProvider, useSpotify, useSpotifyLogger };
+export { SpotifyProvider, useSpotify };

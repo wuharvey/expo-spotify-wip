@@ -1,13 +1,13 @@
-import Security
+import Foundation
 
 class TokenManager {
-    private let tokenKey = "SpotifyAccessToken"
+    static let shared = TokenManager()
+    private let tokenKey = "com.yourappname.spotifyToken"
 
-    // Store the token securely in the keychain
+    private init() {}
+
     func saveToken(_ token: String) -> Bool {
-        guard let data = token.data(using: .utf8) else {
-            return false
-        }
+        guard let data = token.data(using: .utf8) else { return false }
 
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -20,7 +20,6 @@ class TokenManager {
         return status == errSecSuccess
     }
 
-    // Retrieve the token from the keychain
     func getToken() -> String? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -40,7 +39,6 @@ class TokenManager {
         return nil
     }
 
-    // Delete the token from the keychain
     func deleteToken() -> Bool {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,

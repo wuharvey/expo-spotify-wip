@@ -1,4 +1,4 @@
-import { SpotifyProvider, useSpotify, useSpotifyLogger } from "expo-spotify";
+import { SpotifyProvider, useSpotify } from "expo-spotify";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 const SpotifyLoginButton = () => {
@@ -17,7 +17,6 @@ const SpotifyLoginButton = () => {
 };
 
 const App = () => {
-  useSpotifyLogger();
 
   return (
     <SpotifyProvider>

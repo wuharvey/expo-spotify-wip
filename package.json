@@ -1,6 +1,6 @@
 {
   "name": "expo-spotify",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Expo implementation of Spotify SDK.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -21,7 +21,10 @@
     "expo-spotify",
     "ExpoSpotify"
   ],
-  "repository": "https://github.com/kvbalib/expo-spotify",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kvbalib/expo-spotify.git"
+  },
   "bugs": {
     "url": "https://github.com/kvbalib/expo-spotify/issues"
   },

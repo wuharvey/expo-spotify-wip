@@ -1,4 +1,4 @@
-# This library is in development mode. iOS auth is operational, the rest is yet to be included in upcoming releases.
+# This library is in development mode. Config plugin and iOS auth are operational, the rest is yet to be included in upcoming releases.
 
 # expo-spotify
 
