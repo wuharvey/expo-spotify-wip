@@ -21,7 +21,7 @@ public class ExpoSpotifyModule: Module {
         ])
 
         // Defines event names that the module can send to JavaScript.
-        Events(SPOTIFY_AUTHORIZATION_EVENT_NAME, LOG_EVENT_NAME)
+        Events(SPOTIFY_AUTHORIZATION_EVENT_NAME)
 
         // This will be called when JS starts observing the event.
         OnStartObserving {
