@@ -65,3 +65,5 @@ yarn.lock
 package-lock.json
 
 example/spotifyConfig.ts
+example/ios
+example/android
