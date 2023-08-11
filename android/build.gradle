@@ -28,6 +28,10 @@ buildscript {
 
   repositories {
     mavenCentral()
+
+    flatDir {
+      dirs 'libs'
+    }
   }
 
   dependencies {
@@ -88,4 +92,5 @@ repositories {
 dependencies {
   implementation project(':expo-modules-core')
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${getKotlinVersion()}"
+  implementation(name: 'spotify-auth-release-2.1.0', ext: 'aar')
 }

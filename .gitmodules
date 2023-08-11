@@ -1,0 +1,8 @@
+[submodule "ios/Frameworks/SpotifySDK"]
+	path = ios/external/SpotifySDK
+	url = https://github.com/spotify/ios-sdk.git
+	ignore = dirty
+[submodule "android/libs/SpotifySDK"]
+	path = android/external/SpotifySDK
+	url = https://github.com/spotify/android-sdk.git
+	ignore = dirty

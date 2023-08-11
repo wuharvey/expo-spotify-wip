@@ -5,13 +5,31 @@ import { ISpotifyConfig } from "../plugin/src/types";
 /**
  * Replace the values below with your own Spotify app credentials.
  */
-const spotifyConfig: ISpotifyConfig = {
-  clientID: '<spotify-client-id>',
-  tokenRefreshURL: '<token-refresh-url>',
-  tokenSwapURL: '<token-swap-url>',
-  scheme: '<spotify-url-scheme>',
-  callback: '<spotify-return-route>',
-  scopes: [],
+export const spotifyConfig: ISpotifyConfig = {
+  clientID: "870b96bece98412e9b98a653bff52516",
+  tokenRefreshURL:
+    "https://user-resources-main.develop.goingapp.eu/api/v1/user/connect/spotify/refresh",
+  tokenSwapURL:
+    "https://user-resources-main.develop.goingapp.eu/api/v1/user/connect/spotify/swap",
+  scheme: "goingapp-spotify",
+  callback: "moje-konto",
+  scopes: [
+    "user-read-email",
+    "user-read-private",
+    "user-read-playback-state",
+    "user-modify-playback-state",
+    "user-read-currently-playing",
+    "user-read-recently-played",
+    "user-top-read",
+    "playlist-read-private",
+    "playlist-read-collaborative",
+    "playlist-modify-public",
+    "playlist-modify-private",
+    "user-library-read",
+    "user-library-modify",
+    "user-follow-read",
+    "user-follow-modify",
+  ],
 };
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
