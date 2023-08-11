@@ -21,9 +21,17 @@ function addAuthListener(
   );
 }
 
+/**
+ * Prompts the user to log in to Spotify and authorize your application.
+ * @param playURI
+ */
+function authorize(playURI?: string) {
+  ExpoSpotifyModule.authorize(playURI);
+}
+
 const SpotifyAuthContext = React.createContext<SpotifyContext>({
   accessToken: null,
-  authorize: async (playURI?: string) => {},
+  authorize,
 });
 
 const SpotifyProvider: React.FC<React.PropsWithChildren<object>> = ({
@@ -37,14 +45,6 @@ const SpotifyProvider: React.FC<React.PropsWithChildren<object>> = ({
     });
     return () => subscription.remove();
   }, []);
-
-  async function authorize(playURI?: string): Promise<void> {
-    try {
-      await ExpoSpotifyModule.authorize(playURI);
-    } catch (error) {
-      console.error(`Spotify auth error: ${error}`);
-    }
-  }
 
   return (
     <SpotifyAuthContext.Provider

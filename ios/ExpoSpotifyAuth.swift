@@ -45,7 +45,7 @@ final class ExpoSpotifyAuth: NSObject, SPTSessionManagerDelegate {
     }()
 
     public func initAuth(_ playURI: String?) {
-        configuration.playURI = playURI ?? ""
+        self.configuration.playURI = playURI ?? ""
         sessionManager.initiateSession(with: requestedScopes, options: .default)
     }
 

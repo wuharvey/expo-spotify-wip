@@ -10,5 +10,5 @@ export type ExpoSpotifyViewProps = {
 
 export interface SpotifyContext {
   accessToken: string | null;
-  authorize: (playURI?: string) => Promise<void>;
+  authorize: (playURI?: string) => void;
 }

@@ -4,9 +4,7 @@ import { Button, StyleSheet, Text, View } from "react-native";
 const SpotifyLoginButton = () => {
   const { authorize, accessToken } = useSpotify();
 
-  const handleAuthorize = async () => {
-    await authorize("spotify:playlist:17fmq6aWvSgseCXFWtpFF5");
-  };
+  const handleAuthorize = () => authorize("spotify:track:0kAbddk6eKXc4NIpkoSW9J");
 
   return (
     <View style={styles.container}>
