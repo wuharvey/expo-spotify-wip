@@ -1,0 +1,24 @@
+{
+  "bracketSpacing": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "overrides": [
+    {
+      "files": "*.js",
+      "options": {
+        "semi": true
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "options": {
+        "semi": false
+      }
+    }
+  ],
+  "importOrder": ["^react(?!-)|react-native(?!-)", "<THIRD_PARTY_MODULES>", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true
+}

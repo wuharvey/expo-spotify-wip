@@ -1,0 +1,8 @@
+assets
+.expo
+.expo-shared
+.idea
+android
+ios
+node_modules
+build

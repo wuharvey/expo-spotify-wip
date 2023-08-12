@@ -1,14 +1,14 @@
 export interface SpotifyAuthorizationData {
-  success: boolean;
-  token: string | null;
-  error?: string;
+  success: boolean
+  token: string | null
+  error?: string
 }
 
 export type ExpoSpotifyViewProps = {
-  name: string;
-};
+  name: string
+}
 
 export interface SpotifyContext {
-  accessToken: string | null;
-  authorize: (playURI?: string) => void;
+  accessToken: string | null
+  authorize: (playURI?: string) => void
 }
