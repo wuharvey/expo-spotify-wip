@@ -1,5 +1,6 @@
 package expo.modules.spotify
 
+import android.content.IntentFilter
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
@@ -14,24 +15,13 @@ class ExpoSpotifyModule : Module() {
 
         OnCreate {}
 
-        Constants(
-            "AuthEventName" to SPOTIFY_AUTHORIZATION_EVENT_NAME
-        )
+        Constants("AuthEventName" to SPOTIFY_AUTHORIZATION_EVENT_NAME)
 
         Events(SPOTIFY_AUTHORIZATION_EVENT_NAME)
 
-        // This will be called when JS starts observing the event.
-        OnStartObserving {
-            print("OnStartObserving")
-            // Add any observers or listeners, if required.
-            // In this case, you might not need anything here.
-        }
+        OnStartObserving {}
 
-        // This will be called when JS stops observing the event.
-        OnStopObserving {
-            print("OnStopObserving")
-            // Remove any observers or listeners.
-        }
+        OnStopObserving {}
 
         Function("authorize") { playURI: String? ->
             ExpoSpotifyAuth(appContext).initAuth(playURI)

@@ -1,24 +1,52 @@
 package expo.modules.spotify
 
+import android.content.Intent
+import expo.modules.kotlin.AppContext
 import android.content.pm.PackageManager
+
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
-import expo.modules.kotlin.AppContext
 import com.spotify.sdk.android.auth.AuthorizationClient
 
 class ExpoSpotifyAuth(private val appContext: AppContext) {
-    val clientID: String?
-    val tokenRefreshURL: String?
-    val tokenSwapURL: String?
-    val scheme: String?
-    val callback: String?
-    val scopes: String?
+    private val clientID: String?
+    private val tokenRefreshURL: String?
+    private val tokenSwapURL: String?
+    private val scheme: String?
+    private val callback: String?
+    private val scopes: String?
 
-    private val REDIRECT_URI: String
+    private val redirectURI: String
         get() = "$scheme://$callback"
 
-    private companion object {
+    companion object {
         const val REQUEST_CODE = 2137
+
+        @JvmStatic
+        fun handleActivityResult(requestCode: Int, resultCode: Int, intent: Intent?): Boolean {
+            if (requestCode == REQUEST_CODE) {
+                val response = AuthorizationClient.getResponse(resultCode, intent)
+                return when (response.type) {
+                    AuthorizationResponse.Type.TOKEN -> {
+                        // ExpoSpotifyModule.onAccessTokenObtained(response.accessToken)
+
+                        true
+                    }
+
+                    AuthorizationResponse.Type.ERROR -> {
+                        // ExpoSpotifyModule.onAuthorizationError(response.error)
+
+                        false
+                    }
+
+                    else -> {
+                        // Handle other cases
+                        false
+                    }
+                }
+            }
+            return false
+        }
     }
 
     init {
@@ -37,7 +65,7 @@ class ExpoSpotifyAuth(private val appContext: AppContext) {
 
     public fun initAuth(playURI: String?) {
         val builder =
-            AuthorizationRequest.Builder(clientID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI)
+            AuthorizationRequest.Builder(clientID, AuthorizationResponse.Type.TOKEN, redirectURI)
         builder.setScopes(scopes?.split(" ")?.toTypedArray())
         val request = builder.build()
 
@@ -47,4 +75,5 @@ class ExpoSpotifyAuth(private val appContext: AppContext) {
             request
         )
     }
+
 }

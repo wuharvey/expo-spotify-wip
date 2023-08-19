@@ -4,9 +4,13 @@ import { withSpotifyQueryScheme } from './ios/withSpotifyQueryScheme'
 import { withSpotifyURLScheme } from './ios/withSpotifyURLScheme'
 import { ISpotifyConfig } from './types'
 import { withSpotifyConfig } from './withSpotifyConfig'
+import { withMainActivityMod } from './android/withMainActivityMod';
 
 const withSpotifyRemote: ConfigPlugin<ISpotifyConfig> = (config, props) => {
   config = withSpotifyConfig(config, props)
+
+  // Android specific
+  config = withMainActivityMod(config)
 
   // iOS specific
   config = withSpotifyQueryScheme(config, props)
