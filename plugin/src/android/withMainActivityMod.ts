@@ -1,11 +1,12 @@
-import { ConfigPlugin, withMainActivity } from 'expo/config-plugins';
+import { ExpoConfig } from '@expo/config-types';
+import { ConfigPlugin, withMainActivity } from '@expo/config-plugins';
 
 const spotifyAuthImports = [
   'import android.content.Intent;',
   'import expo.modules.spotify.ExpoSpotifyAuth;'
 ];
 
-const withImportsAdded: ConfigPlugin = (config) => {
+const withImportsAdded: ConfigPlugin = (config: any) => {
   return withMainActivity(config, (config) => {
     if (config.modResults.contents.includes(spotifyAuthImports[0]) || config.modResults.contents.includes(spotifyAuthImports[1])) {
       // Don't add the imports if they already exist
@@ -36,7 +37,7 @@ const activityResultHandlerCode = `
 
   @Override`;
 
-const withActivityResultHandler: ConfigPlugin = (config) => {
+const withActivityResultHandler: ConfigPlugin = (config: any) => {
   return withMainActivity(config, (config) => {
     if (config.modResults.language === 'java') {
       const anchorPattern = /@Override/; // Find the first occurrence of "@Override"
@@ -52,7 +53,7 @@ const withActivityResultHandler: ConfigPlugin = (config) => {
   });
 };
 
-export const withMainActivityMod: ConfigPlugin = (config) => {
+export const withMainActivityMod: ConfigPlugin = (config: ExpoConfig) => {
   config = withImportsAdded(config);
   config = withActivityResultHandler(config);
 

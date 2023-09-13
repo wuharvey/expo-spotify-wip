@@ -1,10 +1,11 @@
-import { ConfigPlugin, withInfoPlist } from "expo/config-plugins";
+import { ConfigPlugin, withInfoPlist } from "@expo/config-plugins";
 
 import { ISpotifyConfig } from "../types";
+import { ExpoConfig } from "@expo/config-types";
 
 export const withSpotifyURLScheme: ConfigPlugin<ISpotifyConfig> = (
-  config,
-  { scheme }
+  config: ExpoConfig,
+  { scheme }: ISpotifyConfig
 ) => {
   return withInfoPlist(config, (config) => {
     const bundleId = config.ios?.bundleIdentifier;

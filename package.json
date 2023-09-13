@@ -1,6 +1,6 @@
 {
   "name": "expo-spotify-wip",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Expo implementation of Spotify SDK.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -21,6 +21,7 @@
     "url": "git@github.com:wuharvey/expo-spotify.git"
   },
   "author": "Harvey Wu <wuharvey@gmail.com>",
+  "homepage": "https://orbit.cafe",
   "license": "MIT",
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
