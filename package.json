@@ -1,6 +1,6 @@
 {
-  "name": "expo-spotify",
-  "version": "0.2.0",
+  "name": "expo-spotify-wip",
+  "version": "0.0.1",
   "description": "Expo implementation of Spotify SDK.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -16,22 +16,12 @@
     "open:android": "open -a \"Android Studio\" example/android",
     "format": "prettier --write \"**/*.{json,js,jsx,ts,tsx}\""
   },
-  "keywords": [
-    "react-native",
-    "expo",
-    "expo-spotify",
-    "ExpoSpotify"
-  ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:kvbalib/expo-spotify.git"
+    "url": "git@github.com:wuharvey/expo-spotify.git"
   },
-  "bugs": {
-    "url": "https://github.com/kvbalib/expo-spotify/issues"
-  },
-  "author": "orb2 <info@orb2.space> (https://github.com/kvbalib)",
+  "author": "Harvey Wu <wuharvey@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/kvbalib/expo-spotify#readme",
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/react": "^18.0.35",
