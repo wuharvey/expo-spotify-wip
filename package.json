@@ -1,6 +1,6 @@
 {
   "name": "expo-spotify-wip",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Expo implementation of Spotify SDK.",
   "main": "build/index.js",
   "types": "build/index.d.ts",
