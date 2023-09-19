@@ -51,7 +51,7 @@ final class ExpoSpotifyAuth: NSObject, SPTSessionManagerDelegate {
 
     public func sessionManager(manager _: SPTSessionManager, didInitiate session: SPTSession) {
         print("success", session)
-        module?.onAccessTokenObtained(session.accessToken)
+        module?.onAccessTokenObtained(session.accessToken, session.refreshToken)
     }
 
     public func sessionManager(manager _: SPTSessionManager, didFailWith error: Error) {
@@ -61,7 +61,7 @@ final class ExpoSpotifyAuth: NSObject, SPTSessionManagerDelegate {
 
     public func sessionManager(manager _: SPTSessionManager, didRenew session: SPTSession) {
         print("renewed", session)
-        module?.onAccessTokenObtained(session.accessToken)
+        module?.onAccessTokenObtained(session.accessToken, session.refreshToken)
     }
 
     private func stringToScope(scopeString: String) -> SPTScope? {

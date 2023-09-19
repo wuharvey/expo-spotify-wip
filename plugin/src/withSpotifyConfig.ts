@@ -4,9 +4,9 @@ import {
   withInfoPlist,
   withAndroidManifest,
 } from '@expo/config-plugins'
+import { ExpoConfig } from '@expo/config-types'
 
 import { ISpotifyConfig } from './types'
-import { ExpoConfig } from '@expo/config-types'
 
 const formatAndroidKeys = (string: string) => {
   return 'Spotify' + string.charAt(0).toUpperCase() + string.slice(1)

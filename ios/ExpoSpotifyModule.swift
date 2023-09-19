@@ -51,17 +51,17 @@ public class ExpoSpotifyModule: Module {
     }
 
     @objc
-    public func onAccessTokenObtained(_ token: String) {
-        sendEvent(SPOTIFY_AUTHORIZATION_EVENT_NAME, ["success": true, "token": token])
+    public func onAccessTokenObtained(_ token: String, _ refreshToken: String?) {
+        sendEvent(SPOTIFY_AUTHORIZATION_EVENT_NAME, ["success": true, "token": token, "refreshToken": refreshToken])
     }
 
     @objc
     public func onSignOut() {
-        sendEvent(SPOTIFY_AUTHORIZATION_EVENT_NAME, ["success": true, "token": nil])
+        sendEvent(SPOTIFY_AUTHORIZATION_EVENT_NAME, ["success": true, "token": nil, "refreshToken": nil])
     }
 
     @objc
     public func onAuthorizationError(_ errorDescription: String) {
-        sendEvent(SPOTIFY_AUTHORIZATION_EVENT_NAME, ["success": false, "error": errorDescription, "token": nil])
+        sendEvent(SPOTIFY_AUTHORIZATION_EVENT_NAME, ["success": false, "error": errorDescription, "token": nil, "refreshToken": nil])
     }
 }
