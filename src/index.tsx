@@ -20,21 +20,28 @@ function authorize(playURI?: string) {
 
 const SpotifyAuthContext = createContext<SpotifyContext>({
   accessToken: null,
+  refreshToken: null,
   authorize,
 })
 
 const SpotifyProvider: FC<PropsWithChildren<object>> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null)
+  const [refreshToken, setRefreshToken] = useState<string | null>(null)
+
   useEffect(() => {
     const subscription = addAuthListener((data) => {
       setToken(data.token)
+      setRefreshToken(data.refreshToken ?? null)
       if (data.error) console.error(`Spotify auth error: ${data.error}`)
     })
     return () => subscription.remove()
   }, [])
 
   return (
-    <SpotifyAuthContext.Provider value={{ accessToken: token, authorize }} children={children} />
+    <SpotifyAuthContext.Provider
+      value={{ accessToken: token, authorize, refreshToken }}
+      children={children}
+    />
   )
 }
 
